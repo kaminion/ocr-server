@@ -31,7 +31,11 @@ export class AppController {
      * 3. Test 결과 돌려줌 
     **/
     // 결과 리턴
-    const result = spawnSync('python', ["../test.py", `--eval_data ${file.path}`]).stdout.toString();
+    const result = spawnSync('source /home/ubuntu/anaconda3/bin/activate pytorch_p36 || python', ["../demo.py",
+      `--image_folder ${file.path}`, '--save_model ../save_models/TPS-ResNet-BiLSTM-CTC-Seed1111/best_accuracy.pth',
+      '--Transformation TPS', '--FeatureExtraction ResNet', '--SequenceModeling BiLSTM', '--Prediction CTC'
+    ])
+      .stdout.toString();
     console.log(result);
     // console.log("업로드 된 파일", file);
     return result;
