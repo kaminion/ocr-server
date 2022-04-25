@@ -32,6 +32,7 @@ export class AppController {
     **/
     // 결과 리턴
     const result = spawnSync('python', ["../test.py", `--eval_data ${file.path}`]).stdout.toString();
+    console.log(result);
     // console.log("업로드 된 파일", file);
     return result;
   }

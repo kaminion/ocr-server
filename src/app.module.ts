@@ -14,7 +14,6 @@ import { AppService } from './app.service';
       },
       // 파일 이름의 경우 난수나 해시로 저장되는 문제가 있어 커스텀하게 정의
       filename: (req, file, cb) => {
-        console.log(file);
         cb(null, file.originalname);
       }
     })
