@@ -2,7 +2,7 @@ import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/co
 import { FileInterceptor } from '@nestjs/platform-express';
 import { execSync, spawn, spawnSync } from 'child_process';
 import { AppService } from './app.service';
-import fs from 'fs';
+import fs, { rmSync } from 'fs';
 
 
 @Controller()
@@ -31,9 +31,6 @@ export class AppController {
      * 3. Test 결과 돌려줌 
     **/
     // 결과 리턴
-    
-    fs.rmdirSync('./upload');
-    fs.mkdirSync('./upload');
 
     execSync('source /home/ubuntu/anaconda3/bin/activate pytorch_p36')
     const result = spawnSync('python', ["../demo.py",
@@ -43,6 +40,7 @@ export class AppController {
       .stdout.toString();
     console.log(result);
     // console.log("업로드 된 파일", file);
+    rmSync(file.path)
     return result;
   }
 }
