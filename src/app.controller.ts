@@ -32,12 +32,7 @@ export class AppController {
     **/
     // 결과 리턴
 
-    execSync('source /home/ubuntu/anaconda3/bin/activate pytorch_p36')
-    const result = spawnSync('python', ["../demo.py",
-      `--image_folder ${file.path}`, '--save_model ../save_models/TPS-ResNet-BiLSTM-CTC-Seed1111/best_accuracy.pth',
-      '--Transformation TPS', '--FeatureExtraction ResNet', '--SequenceModeling BiLSTM', '--Prediction CTC'
-    ])
-      .stdout.toString();
+    const result = spawnSync('./app.sh').stdout.toString();
     console.log(result);
     // console.log("업로드 된 파일", file);
     rmSync(file.path)
