@@ -32,7 +32,7 @@ export class AppController {
     **/
     // 결과 리턴
     
-    fs.rmSync('./upload', {  force: true, recursive: true});
+    fs.rmdirSync('./upload');
     fs.mkdirSync('./upload');
 
     execSync('source /home/ubuntu/anaconda3/bin/activate pytorch_p36')
