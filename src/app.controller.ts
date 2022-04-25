@@ -1,8 +1,8 @@
 import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { spawn, spawnSync } from 'child_process';
+import { execSync, spawn, spawnSync } from 'child_process';
 import { AppService } from './app.service';
-
+import fs from 'fs';
 
 
 @Controller()
@@ -31,7 +31,12 @@ export class AppController {
      * 3. Test 결과 돌려줌 
     **/
     // 결과 리턴
-    const result = spawnSync('source /home/ubuntu/anaconda3/bin/activate pytorch_p36 || python', ["../demo.py",
+    
+    fs.rmSync('./upload', {  force: true, recursive: true});
+    fs.mkdirSync('./upload');
+
+    execSync('source /home/ubuntu/anaconda3/bin/activate pytorch_p36')
+    const result = spawnSync('python', ["../demo.py",
       `--image_folder ${file.path}`, '--save_model ../save_models/TPS-ResNet-BiLSTM-CTC-Seed1111/best_accuracy.pth',
       '--Transformation TPS', '--FeatureExtraction ResNet', '--SequenceModeling BiLSTM', '--Prediction CTC'
     ])
