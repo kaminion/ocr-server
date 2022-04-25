@@ -1,0 +1,20 @@
+# volume 호스트 (현재 프로젝트) : 컨테이너 (내부)
+version: '3'
+services:
+  appserver:
+    image: node:slim
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./:/usr/src/nestjs
+      - /usr/src/nestjs/node_modules
+      - /usr/src/nestjs/dist
+  
+  nginx:
+    image: nginx:1.21.6-alpine
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/nginx.conf
+    ports: 
+      - 80:80
+    depends_on:
+      - appserver
