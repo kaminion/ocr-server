@@ -32,9 +32,9 @@ export class AppController {
     **/
     // 결과 리턴
 
+    console.log("업로드 된 파일", file);
     const result = spawnSync('sh', ['./app.sh']).stdout.toString();
     console.log(result);
-    console.log("업로드 된 파일", file);
     rmSync(file.path)
     return result;
   }
