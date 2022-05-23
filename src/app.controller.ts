@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import fs, { rmSync } from 'fs';
 
 
-@Controller()
+@Controller('/request')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
